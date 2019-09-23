@@ -1,3 +1,5 @@
+const bcrypt = require("bcryptjs");
+
 exports.seed = function(knex) {
   return knex('user').truncate()
     .then(function () {
@@ -7,7 +9,7 @@ exports.seed = function(knex) {
           first_name: "Lambda",
           last_name: "School",
           email: "abc@lambda.com",
-          password: "Test"
+          password: bcrypt.hashSync("test", 12)
         }
       ]);
     });
