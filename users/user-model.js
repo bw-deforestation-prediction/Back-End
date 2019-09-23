@@ -3,7 +3,7 @@ const db = require('../data/dbConfig')
 module.exports = {
     getUsers,
     addUser,
-    // findUserById,
+    findUser,
     createProfile
 }
 
@@ -15,6 +15,10 @@ function addUser(user){
     return db('user')
             .insert(user)
             .then(ids => ({id: ids[0]}))
+}
+
+function findUser(filter){
+    return db('user').where(filter)
 }
 
 function createProfile(profile){
