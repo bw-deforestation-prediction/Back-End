@@ -26,6 +26,18 @@ server.get('/api/users', (req,res) => {
         })
 })
 
+//GET user by id
+server.get('/api/users/:id', (req,res) => {
+    const id = req.params.id
+    db.getUserById(id)
+        .then(user => {
+            res.status(200).json(user)
+        })
+        .catch(err => {
+            res.status(500).json({message: "Fail to retrieve user"})
+        })
+})
+
 //POST a user
 server.post('/api/users/register', (req,res) => {
     const userData = req.body;
