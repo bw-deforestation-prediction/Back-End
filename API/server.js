@@ -75,6 +75,18 @@ function generateToken(user){
     return jwt.sign(payload, secret, options)
 }
 
+//POST user profile
+server.post('/api/users/profile', (req,res) => {
+    const userProfile = req.body
+    db.createProfile(userProfile)
+        .then(profile => {
+            res.status(200).json(profile);
+        })
+        .catch(err => {
+            res.status(500).json(err)
+        })
+})
+
 
 
 
