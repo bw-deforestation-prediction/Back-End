@@ -23,7 +23,10 @@ function addUser(user){
 }
 
 function findUser(filter){
-    return db('user').where(filter)
+    return db('user')
+            .where(filter)
+            .then(users => (users[0]))
+            
 }
 
 function createProfile(profile){

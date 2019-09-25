@@ -59,13 +59,21 @@ server.post('/api/users/login', (req,res)=> {
     let {email, password} = req.body;
 
     db.findUser({email})
-        .first()
         .then(user => {
-            console.log(user)
+            console.log('user outside if',user)
             if (user && bcrypt.compareSync(password, user.password)){
+                console.log('user inside if', user)
                 const token = generateToken(user);
                 res.status(200).json({
-                    message: `Welcome!`, token 
+                    message: `Welcome ${user.email}!`, 
+                    user : {
+                        id: user.id,
+                        first_name: user.first_name,
+                        last_name: user.last_name,
+                        email: user.email,
+                        password: user.password
+                    },
+                    token,  
                 })
             } else {
                 res.status(401).json({message: 'Invalid credentials'})
